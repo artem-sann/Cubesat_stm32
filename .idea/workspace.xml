@@ -17,7 +17,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f406d87e-6bcf-42ed-afc4-0d6a8481d2f9" name="Changes" comment="First test blink application" />
+    <list default="true" id="f406d87e-6bcf-42ed-afc4-0d6a8481d2f9" name="Changes" comment="New dev readme">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -122,7 +124,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1683927129946</updated>
-      <workItem from="1683927150954" duration="1238000" />
+      <workItem from="1683927150954" duration="1655000" />
     </task>
     <task id="LOCAL-00001" summary="First test blink application">
       <created>1683927758223</created>
@@ -131,7 +133,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683927758223</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="New dev readme">
+      <created>1683928677905</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1683928677905</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,6 +159,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First test blink application" />
-    <option name="LAST_COMMIT_MESSAGE" value="First test blink application" />
+    <MESSAGE value="New dev readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="New dev readme" />
   </component>
 </project>
