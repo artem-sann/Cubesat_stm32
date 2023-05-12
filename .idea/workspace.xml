@@ -17,7 +17,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f406d87e-6bcf-42ed-afc4-0d6a8481d2f9" name="Changes" comment="" />
+    <list default="true" id="f406d87e-6bcf-42ed-afc4-0d6a8481d2f9" name="Changes" comment="First test blink application" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -122,8 +122,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1683927129946</updated>
-      <workItem from="1683927150954" duration="517000" />
+      <workItem from="1683927150954" duration="1238000" />
     </task>
+    <task id="LOCAL-00001" summary="First test blink application">
+      <created>1683927758223</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1683927758223</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,5 +147,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First test blink application" />
+    <option name="LAST_COMMIT_MESSAGE" value="First test blink application" />
   </component>
 </project>
