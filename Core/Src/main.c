@@ -39,6 +39,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
@@ -47,6 +48,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -84,19 +86,46 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  //some lora init...
+  HAL_GPIO_WritePin(LoRa_M0_GPIO_Port, LoRa_M0_Pin, 0);
+  HAL_GPIO_WritePin(LoRa_M1_GPIO_Port, LoRa_M1_Pin, 1);
+
+  uint8_t command[7];
+  command[0] = 0xC0;
+  command[1] = 0x00;
+  command[2] = 0x04;
+  command[3] = 0x00;
+  command[4] = 0x00;
+  command[5] = 0x17;
+  command[6] = 0x61;
+  HAL_UART_Transmit(&huart1, command, 7, 500);
+
+  //normal mode
+  HAL_GPIO_WritePin(LoRa_M0_GPIO_Port, LoRa_M0_Pin, 0);
+  HAL_GPIO_WritePin(LoRa_M1_GPIO_Port, LoRa_M1_Pin, 0);
+  uint8_t data[6];
+  data[0] = 0xFF;
+  data[1] = 0xFF;
+  data[2] = 0x17;
+  data[3] = 0xAA;
+  data[4] = 0xBB;
+  data[5] = 0xCC;
+
   while (1)
   {
     /* USER CODE END WHILE */
-      HAL_GPIO_TogglePin(RedLED_GPIO_Port, RedLED_Pin);
-      HAL_Delay(500);
 
     /* USER CODE BEGIN 3 */
+      HAL_GPIO_TogglePin(RedLED_GPIO_Port, RedLED_Pin);
+      HAL_Delay(500);
+      HAL_UART_Transmit(&huart1, data, 6, 1000);
   }
   /* USER CODE END 3 */
 }
@@ -148,6 +177,39 @@ void SystemClock_Config(void)
 }
 
 /**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -159,17 +221,19 @@ static void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(RedLED_GPIO_Port, RedLED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, LoRa_M1_Pin|LoRa_M0_Pin|RedLED_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : RedLED_Pin */
-  GPIO_InitStruct.Pin = RedLED_Pin;
+  /*Configure GPIO pins : LoRa_M1_Pin LoRa_M0_Pin RedLED_Pin */
+  GPIO_InitStruct.Pin = LoRa_M1_Pin|LoRa_M0_Pin|RedLED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(RedLED_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
 }
 
