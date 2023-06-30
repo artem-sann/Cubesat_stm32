@@ -202,8 +202,6 @@
 				6,
 				7,
 				8,
-				58,
-				59,
 				60,
 				61,
 				62,
@@ -221,12 +219,16 @@
 				74,
 				75,
 				76,
+				77,
 				78,
-				81,
-				83,
+				79,
+				80,
+				82,
 				85,
 				87,
-				90
+				89,
+				91,
+				94
 			]
 		},
 		{
@@ -444,14 +446,16 @@
 				54,
 				55,
 				56,
-				77,
-				79,
-				80,
-				82,
+				57,
+				58,
+				81,
+				83,
 				84,
 				86,
 				88,
-				89
+				90,
+				92,
+				93
 			]
 		},
 		{
@@ -464,8 +468,6 @@
 				6,
 				7,
 				8,
-				58,
-				59,
 				60,
 				61,
 				62,
@@ -483,12 +485,16 @@
 				74,
 				75,
 				76,
+				77,
 				78,
-				81,
-				83,
+				79,
+				80,
+				82,
 				85,
 				87,
-				90
+				89,
+				91,
+				94
 			]
 		},
 		{
@@ -498,8 +504,8 @@
 				9,
 				13,
 				35,
-				57,
-				91
+				59,
+				95
 			]
 		}
 	],
@@ -754,6 +760,16 @@
 		},
 		{
 			"backtrace" : 1,
+			"path" : "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
 			"path" : "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h",
 			"sourceGroupIndex" : 0
 		},
@@ -854,6 +870,18 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c",
 			"sourceGroupIndex" : 1
 		},
 		{
