@@ -57,6 +57,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Buzzer_Pin GPIO_PIN_0
+#define Buzzer_GPIO_Port GPIOB
+#define RGBgreen_Pin GPIO_PIN_12
+#define RGBgreen_GPIO_Port GPIOD
+#define RGBred_Pin GPIO_PIN_13
+#define RGBred_GPIO_Port GPIOD
+#define RGBblue_Pin GPIO_PIN_14
+#define RGBblue_GPIO_Port GPIOD
 #define LoRa_M1_Pin GPIO_PIN_1
 #define LoRa_M1_GPIO_Port GPIOD
 #define LoRa_M0_Pin GPIO_PIN_3

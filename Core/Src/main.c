@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "fatfs.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -39,7 +40,9 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
- UART_HandleTypeDef huart1;
+ SD_HandleTypeDef hsd;
+
+UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
@@ -49,12 +52,16 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_SDIO_SD_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+FATFS SDFatFs;  /* File system object for SD card logical drive */
+FIL MyFile;     /* File object */
+//extern char SDPath[4];  /* SD logical drive path */
 
 /* USER CODE END 0 */
 
@@ -87,6 +94,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+  MX_SDIO_SD_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -97,35 +106,83 @@ int main(void)
   HAL_GPIO_WritePin(LoRa_M0_GPIO_Port, LoRa_M0_Pin, 0);
   HAL_GPIO_WritePin(LoRa_M1_GPIO_Port, LoRa_M1_Pin, 1);
 
-  uint8_t command[7];
+  uint8_t command[8];
   command[0] = 0xC0;
   command[1] = 0x00;
-  command[2] = 0x04;
+  command[2] = 0x05;
   command[3] = 0x00;
   command[4] = 0x00;
-  command[5] = 0x17;
+  command[5] = 0x00;
   command[6] = 0x61;
-  HAL_UART_Transmit(&huart1, command, 7, 500);
+  command[7] = 0x17;
+  HAL_UART_Transmit(&huart1, command, 8, 500);
 
   //normal mode
   HAL_GPIO_WritePin(LoRa_M0_GPIO_Port, LoRa_M0_Pin, 0);
   HAL_GPIO_WritePin(LoRa_M1_GPIO_Port, LoRa_M1_Pin, 0);
   uint8_t data[6];
-  data[0] = 0xFF;
-  data[1] = 0xFF;
+  data[0] = 0x00;
+  data[1] = 0x00;
   data[2] = 0x17;
   data[3] = 0xAA;
   data[4] = 0xBB;
   data[5] = 0xCC;
+
+  // SD test
+  FRESULT res;                                          /* FatFs function common result code */
+  uint32_t byteswritten, bytesread;                     /* File write/read counts */
+  uint8_t wtext[] = "Hello write from Stm32 to Micro SD!!!"; /* File write buffer */
+
+    if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 0) != FR_OK)
+    {
+        Error_Handler();
+    }
+    else
+    {
+        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_SET);
+        HAL_Delay(1000);
+        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_RESET);
+        HAL_Delay(100);
+    }
+
+    if(f_open(&MyFile, "my001.txt",FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+    {
+        Error_Handler();
+    }
+    else
+    {
+        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_SET);
+        HAL_Delay(1000);
+        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_RESET);
+        HAL_Delay(100);
+    }
+
+    res = f_write(&MyFile, wtext, sizeof(wtext), (void *)&byteswritten);
+
+    if((byteswritten == 0) || (res != FR_OK))
+    {
+        Error_Handler();
+    }
+    else
+    {
+        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_SET);
+        HAL_Delay(1000);
+        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_RESET);
+        HAL_Delay(100);
+    }
+    f_close(&MyFile);
+
 
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-      HAL_GPIO_TogglePin(RedLED_GPIO_Port, RedLED_Pin);
-      HAL_Delay(500);
-      HAL_UART_Transmit(&huart1, data, 6, 1000);
+      HAL_GPIO_WritePin(RGBgreen_GPIO_Port, RGBgreen_Pin, GPIO_PIN_SET);
+
+      //HAL_GPIO_TogglePin(RedLED_GPIO_Port, RedLED_Pin);
+      //HAL_Delay(700);
+      //HAL_UART_Transmit(&huart1, data, 6, 1000);
   }
   /* USER CODE END 3 */
 }
@@ -155,7 +212,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 8;
   RCC_OscInitStruct.PLL.PLLN = 100;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 5;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -174,6 +231,34 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief SDIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SDIO_SD_Init(void)
+{
+
+  /* USER CODE BEGIN SDIO_Init 0 */
+
+  /* USER CODE END SDIO_Init 0 */
+
+  /* USER CODE BEGIN SDIO_Init 1 */
+
+  /* USER CODE END SDIO_Init 1 */
+  hsd.Instance = SDIO;
+  hsd.Init.ClockEdge = SDIO_CLOCK_EDGE_RISING;
+  hsd.Init.ClockBypass = SDIO_CLOCK_BYPASS_DISABLE;
+  hsd.Init.ClockPowerSave = SDIO_CLOCK_POWER_SAVE_DISABLE;
+  hsd.Init.BusWide = SDIO_BUS_WIDE_1B;
+  hsd.Init.HardwareFlowControl = SDIO_HARDWARE_FLOW_CONTROL_DISABLE;
+  hsd.Init.ClockDiv = 0;
+  /* USER CODE BEGIN SDIO_Init 2 */
+
+  /* USER CODE END SDIO_Init 2 */
+
 }
 
 /**
@@ -221,15 +306,28 @@ static void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, LoRa_M1_Pin|LoRa_M0_Pin|RedLED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LoRa_M1_Pin LoRa_M0_Pin RedLED_Pin */
-  GPIO_InitStruct.Pin = LoRa_M1_Pin|LoRa_M0_Pin|RedLED_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOD, RGBgreen_Pin|RGBred_Pin|RGBblue_Pin|LoRa_M1_Pin
+                          |LoRa_M0_Pin|RedLED_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : Buzzer_Pin */
+  GPIO_InitStruct.Pin = Buzzer_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(Buzzer_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : RGBgreen_Pin RGBred_Pin RGBblue_Pin LoRa_M1_Pin
+                           LoRa_M0_Pin RedLED_Pin */
+  GPIO_InitStruct.Pin = RGBgreen_Pin|RGBred_Pin|RGBblue_Pin|LoRa_M1_Pin
+                          |LoRa_M0_Pin|RedLED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -252,6 +350,10 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+      HAL_GPIO_WritePin(RGBred_GPIO_Port, RGBred_Pin, GPIO_PIN_SET);
+
+      HAL_GPIO_TogglePin(Buzzer_GPIO_Port, Buzzer_Pin);
+      HAL_Delay(500);
   }
   /* USER CODE END Error_Handler_Debug */
 }
