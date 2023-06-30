@@ -31,6 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "Waveshare_10Dof-D.h"
 
 /* USER CODE END Includes */
 

@@ -49,9 +49,49 @@ cmake_ninja_workdir = C$:/CLionProjects/Cubesat_stm32/cmake-build-debug/
 
 build cmake_object_order_depends_target_Cubesat_stm32.elf: phony || CMakeFiles/Cubesat_stm32.elf.dir
 
+build CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/Waveshare_10Dof-D.c.obj: C_COMPILER__Cubesat_stm32.2eelf_Debug C$:/CLionProjects/Cubesat_stm32/Core/Src/Waveshare_10Dof-D.c || cmake_object_order_depends_target_Cubesat_stm32.elf
+  DEFINES = -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src\Waveshare_10Dof-D.c.obj.d
+  FLAGS = -g -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g -std=gnu11
+  INCLUDES = -IC:/CLionProjects/Cubesat_stm32/Core/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Include -IC:/CLionProjects/Cubesat_stm32/FATFS/Target -IC:/CLionProjects/Cubesat_stm32/FATFS/App -IC:/CLionProjects/Cubesat_stm32/Middlewares/Third_Party/FatFs/src
+  OBJECT_DIR = CMakeFiles\Cubesat_stm32.elf.dir
+  OBJECT_FILE_DIR = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src
+  TARGET_COMPILE_PDB = CMakeFiles\Cubesat_stm32.elf.dir\
+  TARGET_PDB = Cubesat_stm32.elf.pdb
+
+build CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/gpio.c.obj: C_COMPILER__Cubesat_stm32.2eelf_Debug C$:/CLionProjects/Cubesat_stm32/Core/Src/gpio.c || cmake_object_order_depends_target_Cubesat_stm32.elf
+  DEFINES = -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src\gpio.c.obj.d
+  FLAGS = -g -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g -std=gnu11
+  INCLUDES = -IC:/CLionProjects/Cubesat_stm32/Core/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Include -IC:/CLionProjects/Cubesat_stm32/FATFS/Target -IC:/CLionProjects/Cubesat_stm32/FATFS/App -IC:/CLionProjects/Cubesat_stm32/Middlewares/Third_Party/FatFs/src
+  OBJECT_DIR = CMakeFiles\Cubesat_stm32.elf.dir
+  OBJECT_FILE_DIR = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src
+  TARGET_COMPILE_PDB = CMakeFiles\Cubesat_stm32.elf.dir\
+  TARGET_PDB = Cubesat_stm32.elf.pdb
+
+build CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/i2c.c.obj: C_COMPILER__Cubesat_stm32.2eelf_Debug C$:/CLionProjects/Cubesat_stm32/Core/Src/i2c.c || cmake_object_order_depends_target_Cubesat_stm32.elf
+  DEFINES = -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src\i2c.c.obj.d
+  FLAGS = -g -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g -std=gnu11
+  INCLUDES = -IC:/CLionProjects/Cubesat_stm32/Core/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Include -IC:/CLionProjects/Cubesat_stm32/FATFS/Target -IC:/CLionProjects/Cubesat_stm32/FATFS/App -IC:/CLionProjects/Cubesat_stm32/Middlewares/Third_Party/FatFs/src
+  OBJECT_DIR = CMakeFiles\Cubesat_stm32.elf.dir
+  OBJECT_FILE_DIR = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src
+  TARGET_COMPILE_PDB = CMakeFiles\Cubesat_stm32.elf.dir\
+  TARGET_PDB = Cubesat_stm32.elf.pdb
+
 build CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/main.c.obj: C_COMPILER__Cubesat_stm32.2eelf_Debug C$:/CLionProjects/Cubesat_stm32/Core/Src/main.c || cmake_object_order_depends_target_Cubesat_stm32.elf
   DEFINES = -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER
   DEP_FILE = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src\main.c.obj.d
+  FLAGS = -g -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g -std=gnu11
+  INCLUDES = -IC:/CLionProjects/Cubesat_stm32/Core/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Include -IC:/CLionProjects/Cubesat_stm32/FATFS/Target -IC:/CLionProjects/Cubesat_stm32/FATFS/App -IC:/CLionProjects/Cubesat_stm32/Middlewares/Third_Party/FatFs/src
+  OBJECT_DIR = CMakeFiles\Cubesat_stm32.elf.dir
+  OBJECT_FILE_DIR = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src
+  TARGET_COMPILE_PDB = CMakeFiles\Cubesat_stm32.elf.dir\
+  TARGET_PDB = Cubesat_stm32.elf.pdb
+
+build CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/sdio.c.obj: C_COMPILER__Cubesat_stm32.2eelf_Debug C$:/CLionProjects/Cubesat_stm32/Core/Src/sdio.c || cmake_object_order_depends_target_Cubesat_stm32.elf
+  DEFINES = -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src\sdio.c.obj.d
   FLAGS = -g -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g -std=gnu11
   INCLUDES = -IC:/CLionProjects/Cubesat_stm32/Core/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Include -IC:/CLionProjects/Cubesat_stm32/FATFS/Target -IC:/CLionProjects/Cubesat_stm32/FATFS/App -IC:/CLionProjects/Cubesat_stm32/Middlewares/Third_Party/FatFs/src
   OBJECT_DIR = CMakeFiles\Cubesat_stm32.elf.dir
@@ -102,6 +142,16 @@ build CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/sysmem.c.obj: C_COMPILER__Cubesa
 build CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/system_stm32f4xx.c.obj: C_COMPILER__Cubesat_stm32.2eelf_Debug C$:/CLionProjects/Cubesat_stm32/Core/Src/system_stm32f4xx.c || cmake_object_order_depends_target_Cubesat_stm32.elf
   DEFINES = -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER
   DEP_FILE = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src\system_stm32f4xx.c.obj.d
+  FLAGS = -g -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g -std=gnu11
+  INCLUDES = -IC:/CLionProjects/Cubesat_stm32/Core/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Include -IC:/CLionProjects/Cubesat_stm32/FATFS/Target -IC:/CLionProjects/Cubesat_stm32/FATFS/App -IC:/CLionProjects/Cubesat_stm32/Middlewares/Third_Party/FatFs/src
+  OBJECT_DIR = CMakeFiles\Cubesat_stm32.elf.dir
+  OBJECT_FILE_DIR = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src
+  TARGET_COMPILE_PDB = CMakeFiles\Cubesat_stm32.elf.dir\
+  TARGET_PDB = Cubesat_stm32.elf.pdb
+
+build CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/usart.c.obj: C_COMPILER__Cubesat_stm32.2eelf_Debug C$:/CLionProjects/Cubesat_stm32/Core/Src/usart.c || cmake_object_order_depends_target_Cubesat_stm32.elf
+  DEFINES = -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER
+  DEP_FILE = CMakeFiles\Cubesat_stm32.elf.dir\Core\Src\usart.c.obj.d
   FLAGS = -g -mcpu=cortex-m4 -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -fno-common -fmessage-length=0 -Og -g -std=gnu11
   INCLUDES = -IC:/CLionProjects/Cubesat_stm32/Core/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/CLionProjects/Cubesat_stm32/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/CLionProjects/Cubesat_stm32/Drivers/CMSIS/Include -IC:/CLionProjects/Cubesat_stm32/FATFS/Target -IC:/CLionProjects/Cubesat_stm32/FATFS/App -IC:/CLionProjects/Cubesat_stm32/Middlewares/Third_Party/FatFs/src
   OBJECT_DIR = CMakeFiles\Cubesat_stm32.elf.dir
@@ -397,7 +447,7 @@ build CMakeFiles/Cubesat_stm32.elf.dir/Middlewares/Third_Party/FatFs/src/option/
 #############################################
 # Link the executable Cubesat_stm32.elf
 
-build Cubesat_stm32.elf: C_EXECUTABLE_LINKER__Cubesat_stm32.2eelf_Debug CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/main.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/stm32f4xx_hal_msp.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/stm32f4xx_it.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/syscalls.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/sysmem.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/system_stm32f4xx.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Startup/startup_stm32f411vetx.s.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.c.obj CMakeFiles/Cubesat_stm32.elf.dir/FATFS/App/fatfs.c.obj CMakeFiles/Cubesat_stm32.elf.dir/FATFS/Target/bsp_driver_sd.c.obj CMakeFiles/Cubesat_stm32.elf.dir/FATFS/Target/sd_diskio.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Middlewares/Third_Party/FatFs/src/diskio.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Middlewares/Third_Party/FatFs/src/ff.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Middlewares/Third_Party/FatFs/src/ff_gen_drv.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Middlewares/Third_Party/FatFs/src/option/syscall.c.obj
+build Cubesat_stm32.elf: C_EXECUTABLE_LINKER__Cubesat_stm32.2eelf_Debug CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/Waveshare_10Dof-D.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/gpio.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/i2c.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/main.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/sdio.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/stm32f4xx_hal_msp.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/stm32f4xx_it.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/syscalls.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/sysmem.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/system_stm32f4xx.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Src/usart.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Core/Startup/startup_stm32f411vetx.s.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.c.obj CMakeFiles/Cubesat_stm32.elf.dir/FATFS/App/fatfs.c.obj CMakeFiles/Cubesat_stm32.elf.dir/FATFS/Target/bsp_driver_sd.c.obj CMakeFiles/Cubesat_stm32.elf.dir/FATFS/Target/sd_diskio.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Middlewares/Third_Party/FatFs/src/diskio.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Middlewares/Third_Party/FatFs/src/ff.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Middlewares/Third_Party/FatFs/src/ff_gen_drv.c.obj CMakeFiles/Cubesat_stm32.elf.dir/Middlewares/Third_Party/FatFs/src/option/syscall.c.obj
   FLAGS = -g
   LINK_FLAGS = -Wl,-gc-sections,--print-memory-usage,-Map=C:/CLionProjects/Cubesat_stm32/cmake-build-debug/Cubesat_stm32.map -mcpu=cortex-m4 -mthumb -mthumb-interwork -T C:/CLionProjects/Cubesat_stm32/STM32F411VETX_FLASH.ld
   OBJECT_DIR = CMakeFiles\Cubesat_stm32.elf.dir
