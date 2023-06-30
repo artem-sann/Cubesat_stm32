@@ -21,12 +21,14 @@
 #include "fatfs.h"
 #include "i2c.h"
 #include "sdio.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
+#include "onewire.h"
 
 
 /* USER CODE END Includes */
@@ -38,6 +40,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+#define DS18B20_PORT GPIOA
+#define DS18B20_PIN GPIO_PIN_1
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -62,6 +68,12 @@ void SystemClock_Config(void);
 FATFS SDFatFs;  /* File system object for SD card logical drive */
 FIL MyFile;     /* File object */
 //extern char SDPath[4];  /* SD logical drive path */
+
+void delay (uint16_t time) {
+	/* change your code here for the delay in microseconds */
+	__HAL_TIM_SET_COUNTER(&htim10, 0);
+	while ((__HAL_TIM_GET_COUNTER(&htim10))<time);
+}
 
 /* USER CODE END 0 */
 
@@ -105,129 +117,130 @@ int main(void)
   MX_SDIO_SD_Init();
   MX_FATFS_Init();
   MX_I2C1_Init();
+  MX_TIM10_Init();
+
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start(&htim10);
+
+  //some lora init...
+    HAL_GPIO_WritePin(LoRa_M0_GPIO_Port, LoRa_M0_Pin, 0);
+    HAL_GPIO_WritePin(LoRa_M1_GPIO_Port, LoRa_M1_Pin, 1);
+
+    uint8_t command[8];
+    command[0] = 0xC0;
+    command[1] = 0x00;
+    command[2] = 0x05;
+    command[3] = 0x00;
+    command[4] = 0x00;
+    command[5] = 0x00;
+    command[6] = 0x61;
+    command[7] = 0x17;
+    HAL_UART_Transmit(&huart1, command, 8, 500);
+
+    //normal mode
+    HAL_GPIO_WritePin(LoRa_M0_GPIO_Port, LoRa_M0_Pin, 0);
+    HAL_GPIO_WritePin(LoRa_M1_GPIO_Port, LoRa_M1_Pin, 0);
+    uint8_t data[6];
+    data[0] = 0x00;
+    data[1] = 0x00;
+    data[2] = 0x17;
+    data[3] = 0xAA;
+    data[4] = 0xBB;
+    data[5] = 0xCC;
+
+    // SD test
+    FRESULT res;                                          /* FatFs function common result code */
+    uint32_t byteswritten, bytesread;                     /* File write/read counts */
+    uint8_t wtext[] = "Hello write from Stm32 to Micro SD!!!"; /* File write buffer */
+
+      if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 0) != FR_OK)
+      {
+          Error_Handler();
+      }
+      else
+      {
+          HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_SET);
+          HAL_Delay(1000);
+          HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_RESET);
+          HAL_Delay(100);
+      }
+
+      if(f_open(&MyFile, "my001.txt",FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+      {
+          Error_Handler();
+      }
+      else
+      {
+          HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_SET);
+          HAL_Delay(1000);
+          HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_RESET);
+          HAL_Delay(100);
+      }
+
+      res = f_write(&MyFile, wtext, sizeof(wtext), (void *)&byteswritten);
+
+      if((byteswritten == 0) || (res != FR_OK))
+      {
+          Error_Handler();
+      }
+      else
+      {
+          HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_SET);
+          HAL_Delay(1000);
+          HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_RESET);
+          HAL_Delay(100);
+      }
+      f_close(&MyFile);
+
+    // I2C test
+      uint8_t buf[8] = {0};
+      uint8_t separator[] = " . ";
+      uint8_t new_line[] = "\r\n";
+      uint8_t start_text[] = "Start scanning I2C: \r\n";
+      uint8_t end_text[] = "\r\nStop scanning";
+
+      uint8_t row = 0, state;
+
+      HAL_Delay(1000);
+
+      // процедура сканирования
+      HAL_UART_Transmit(&huart1, start_text, sizeof(start_text), 128);
+      for( uint8_t i=1; i<128; i++ ){
+          state = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
+
+          if ( state != HAL_OK ){ // нет ответа от адреса
+              HAL_UART_Transmit(&huart1, separator, sizeof(separator), 128);
+          }
+
+          else if(state == HAL_OK){ // есть ответ
+              sprintf(buf, "0x%X", i);
+              HAL_UART_Transmit(&huart1, buf, sizeof(buf), 128);
+          }
+
+          if( row == 15 ){
+              row = 0;
+              HAL_UART_Transmit(&huart1, new_line, sizeof(new_line), 128);
+          } else
+              row ++;
+      }
+      HAL_UART_Transmit(&huart1, end_text, sizeof(end_text), 128);
+
+    // 10DOF test
+      imuDataGet( &stAngles, &stGyroRawData, &stAccelRawData, &stMagnRawData);
+      pressSensorDataGet(&s32TemperatureVal, &s32PressureVal, &s32AltitudeVal);
+      printf("\r\n /-------------------------------------------------------------/ \r\n");
+      //printf("\r\n Roll: %.2f     Pitch: %.2f     Yaw: %.2f \r\n",stAngles.fRoll, stAngles.fPitch, stAngles.fYaw);
+      printf("\r\n Acceleration: X: %d     Y: %d     Z: %d \r\n",stAccelRawData.s16X, stAccelRawData.s16Y, stAccelRawData.s16Z);
+      printf("\r\n Gyroscope: X: %d     Y: %d     Z: %d \r\n",stGyroRawData.s16X, stGyroRawData.s16Y, stGyroRawData.s16Z);
+      printf("\r\n Magnetic: X: %d     Y: %d     Z: %d \r\n",stMagnRawData.s16X, stMagnRawData.s16Y, stMagnRawData.s16Z);
+      //printf("\r\n Pressure: %.2f     Altitude: %.2f \r\n",(float)s32PressureVal/100, (float)s32AltitudeVal/100);
+      //printf("\r\n Temperature: %.1f \r\n", (float)s32TemperatureVal/100);
+      HAL_Delay(100);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  //some lora init...
-  HAL_GPIO_WritePin(LoRa_M0_GPIO_Port, LoRa_M0_Pin, 0);
-  HAL_GPIO_WritePin(LoRa_M1_GPIO_Port, LoRa_M1_Pin, 1);
-
-  uint8_t command[8];
-  command[0] = 0xC0;
-  command[1] = 0x00;
-  command[2] = 0x05;
-  command[3] = 0x00;
-  command[4] = 0x00;
-  command[5] = 0x00;
-  command[6] = 0x61;
-  command[7] = 0x17;
-  HAL_UART_Transmit(&huart1, command, 8, 500);
-
-  //normal mode
-  HAL_GPIO_WritePin(LoRa_M0_GPIO_Port, LoRa_M0_Pin, 0);
-  HAL_GPIO_WritePin(LoRa_M1_GPIO_Port, LoRa_M1_Pin, 0);
-  uint8_t data[6];
-  data[0] = 0x00;
-  data[1] = 0x00;
-  data[2] = 0x17;
-  data[3] = 0xAA;
-  data[4] = 0xBB;
-  data[5] = 0xCC;
-
-  // SD test
-  FRESULT res;                                          /* FatFs function common result code */
-  uint32_t byteswritten, bytesread;                     /* File write/read counts */
-  uint8_t wtext[] = "Hello write from Stm32 to Micro SD!!!"; /* File write buffer */
-
-    if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 0) != FR_OK)
-    {
-        Error_Handler();
-    }
-    else
-    {
-        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_SET);
-        HAL_Delay(1000);
-        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_RESET);
-        HAL_Delay(100);
-    }
-
-    if(f_open(&MyFile, "my001.txt",FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
-    {
-        Error_Handler();
-    }
-    else
-    {
-        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_SET);
-        HAL_Delay(1000);
-        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_RESET);
-        HAL_Delay(100);
-    }
-
-    res = f_write(&MyFile, wtext, sizeof(wtext), (void *)&byteswritten);
-
-    if((byteswritten == 0) || (res != FR_OK))
-    {
-        Error_Handler();
-    }
-    else
-    {
-        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_SET);
-        HAL_Delay(1000);
-        HAL_GPIO_WritePin(RGBblue_GPIO_Port,RGBblue_Pin , GPIO_PIN_RESET);
-        HAL_Delay(100);
-    }
-    f_close(&MyFile);
-
-  // I2C test
-    uint8_t buf[8] = {0};
-    uint8_t separator[] = " . ";
-    uint8_t new_line[] = "\r\n";
-    uint8_t start_text[] = "Start scanning I2C: \r\n";
-    uint8_t end_text[] = "\r\nStop scanning";
-
-    uint8_t row = 0, state;
-
-    HAL_Delay(1000);
-
-    // процедура сканирования
-    HAL_UART_Transmit(&huart1, start_text, sizeof(start_text), 128);
-    for( uint8_t i=1; i<128; i++ ){
-        state = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
-
-        if ( state != HAL_OK ){ // нет ответа от адреса
-            HAL_UART_Transmit(&huart1, separator, sizeof(separator), 128);
-        }
-
-        else if(state == HAL_OK){ // есть ответ
-            sprintf(buf, "0x%X", i);
-            HAL_UART_Transmit(&huart1, buf, sizeof(buf), 128);
-        }
-
-        if( row == 15 ){
-            row = 0;
-            HAL_UART_Transmit(&huart1, new_line, sizeof(new_line), 128);
-        } else
-            row ++;
-    }
-    HAL_UART_Transmit(&huart1, end_text, sizeof(end_text), 128);
-
-  // 10DOF test
-    imuDataGet( &stAngles, &stGyroRawData, &stAccelRawData, &stMagnRawData);
-    pressSensorDataGet(&s32TemperatureVal, &s32PressureVal, &s32AltitudeVal);
-    printf("\r\n /-------------------------------------------------------------/ \r\n");
-    printf("\r\n Roll: %.2f     Pitch: %.2f     Yaw: %.2f \r\n",stAngles.fRoll, stAngles.fPitch, stAngles.fYaw);
-    printf("\r\n Acceleration: X: %d     Y: %d     Z: %d \r\n",stAccelRawData.s16X, stAccelRawData.s16Y, stAccelRawData.s16Z);
-    printf("\r\n Gyroscope: X: %d     Y: %d     Z: %d \r\n",stGyroRawData.s16X, stGyroRawData.s16Y, stGyroRawData.s16Z);
-    printf("\r\n Magnetic: X: %d     Y: %d     Z: %d \r\n",stMagnRawData.s16X, stMagnRawData.s16Y, stMagnRawData.s16Z);
-    printf("\r\n Pressure: %.2f     Altitude: %.2f \r\n",(float)s32PressureVal/100, (float)s32AltitudeVal/100);
-    printf("\r\n Temperature: %.1f \r\n", (float)s32TemperatureVal/100);
-    HAL_Delay(100);
-
-
-
 
   while (1)
   {
@@ -240,6 +253,8 @@ int main(void)
       //HAL_Delay(700);
       uint8_t deb[] = "12345\n";
       deb[2] = 'x';
+
+      float Temperature = (float)DS18B20_Getemp()/16;
 
       HAL_UART_Transmit(&huart1, deb, 6, 100);
       HAL_Delay(1000);

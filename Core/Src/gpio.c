@@ -55,8 +55,8 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, RGBgreen_Pin|RGBred_Pin|RGBblue_Pin|LoRa_M1_Pin
-                          |LoRa_M0_Pin|RedLED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, DS18B20_Pin|RGBgreen_Pin|RGBred_Pin|RGBblue_Pin
+                          |LoRa_M1_Pin|LoRa_M0_Pin|RedLED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = Buzzer_Pin;
@@ -66,9 +66,9 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(Buzzer_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PDPin PDPin PDPin PDPin
-                           PDPin PDPin */
-  GPIO_InitStruct.Pin = RGBgreen_Pin|RGBred_Pin|RGBblue_Pin|LoRa_M1_Pin
-                          |LoRa_M0_Pin|RedLED_Pin;
+                           PDPin PDPin PDPin */
+  GPIO_InitStruct.Pin = DS18B20_Pin|RGBgreen_Pin|RGBred_Pin|RGBblue_Pin
+                          |LoRa_M1_Pin|LoRa_M0_Pin|RedLED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

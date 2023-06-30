@@ -60,6 +60,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define Buzzer_Pin GPIO_PIN_0
 #define Buzzer_GPIO_Port GPIOB
+#define DS18B20_Pin GPIO_PIN_11
+#define DS18B20_GPIO_Port GPIOD
 #define RGBgreen_Pin GPIO_PIN_12
 #define RGBgreen_GPIO_Port GPIOD
 #define RGBred_Pin GPIO_PIN_13
