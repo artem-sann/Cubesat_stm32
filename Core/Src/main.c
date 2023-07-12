@@ -24,6 +24,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -204,26 +205,26 @@ int main(void)
       HAL_Delay(1000);
 
       // процедура сканирования
-      HAL_UART_Transmit(&huart1, start_text, sizeof(start_text), 128);
+      HAL_UART_Transmit(&huart1, start_text, strlen(start_text), 128);
       for( uint8_t i=1; i<128; i++ ){
           state = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
 
           if ( state != HAL_OK ){ // нет ответа от адреса
-              HAL_UART_Transmit(&huart1, separator, sizeof(separator), 128);
+              HAL_UART_Transmit(&huart1, separator, strlen(separator), 128);
           }
 
           else if(state == HAL_OK){ // есть ответ
               sprintf(buf, "0x%X", i);
-              HAL_UART_Transmit(&huart1, buf, sizeof(buf), 128);
+              HAL_UART_Transmit(&huart1, buf, strlen(buf), 128);
           }
 
           if( row == 15 ){
               row = 0;
-              HAL_UART_Transmit(&huart1, new_line, sizeof(new_line), 128);
+              HAL_UART_Transmit(&huart1, new_line, strlen(new_line), 128);
           } else
               row ++;
       }
-      HAL_UART_Transmit(&huart1, end_text, sizeof(end_text), 128);
+      HAL_UART_Transmit(&huart1, end_text, strlen(end_text), 128);
 
     // 10DOF test
       imuDataGet( &stAngles, &stGyroRawData, &stAccelRawData, &stMagnRawData);
